@@ -1,4 +1,5 @@
 import habr.*;
+import model.Article;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,9 +8,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         int start = 1;
-        int end = 1;
+        int end = 10;
 
-        ParserWorker<ArrayList<String>> parser = new ParserWorker<>(new HabrParser(), new HabrSettings(start, end));
+        ParserWorker<ArrayList<Article>> parser = new ParserWorker<>(new HabrParser(), new HabrSettings(start, end));
 
         parser.onCompletedList.add(new Completed());
         parser.onNewDataList.add(new NewData());
