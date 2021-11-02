@@ -1,4 +1,6 @@
-package habr;
+package parser;
+
+import parser.OnCompleted;
 
 public class Completed implements OnCompleted {
 

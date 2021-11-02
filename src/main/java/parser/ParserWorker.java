@@ -1,13 +1,9 @@
-package habr;
+package parser;
 
-import model.Article;
 import org.jsoup.nodes.Document;
-import parser.Parser;
-import parser.ParserSettings;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ParserWorker<T> {
 
@@ -22,7 +18,7 @@ public class ParserWorker<T> {
     public ParserWorker(Parser<T> parser, ParserSettings parserSettings) {
         this.parser = parser;
         this.parserSettings = parserSettings;
-        loader = new HtmlLoader(parserSettings);
+        loader = new HtmlLoader();
     }
 
     public Parser<T> getParser() {
@@ -39,7 +35,7 @@ public class ParserWorker<T> {
 
     public void setParserSettings(ParserSettings parserSettings) {
         this.parserSettings = parserSettings;
-        loader = new HtmlLoader(parserSettings);
+        loader = new HtmlLoader();
     }
 
     public void start() throws IOException {

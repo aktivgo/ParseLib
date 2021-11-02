@@ -1,4 +1,4 @@
-package habr;
+package parser;
 
 public interface OnCompleted {
 

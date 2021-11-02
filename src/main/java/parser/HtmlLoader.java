@@ -1,8 +1,7 @@
-package habr;
+package parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import parser.ParserSettings;
 
 import java.io.IOException;
 
@@ -10,8 +9,8 @@ public class HtmlLoader {
 
     String url;
 
-    public HtmlLoader(ParserSettings settings) {
-        url = HabrSettings.BASE_URL + "/" + HabrSettings.PREFIX;
+    public HtmlLoader() {
+        url = ParserSettings.BASE_URL + "/" + ParserSettings.PREFIX;
     }
 
     public Document GetSourceByPageId(int id) throws IOException {

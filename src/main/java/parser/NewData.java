@@ -1,6 +1,7 @@
-package habr;
+package parser;
 
 import model.Article;
+import parser.OnNewDataHandler;
 
 import java.util.ArrayList;
 
