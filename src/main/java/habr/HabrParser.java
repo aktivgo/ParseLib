@@ -8,7 +8,6 @@ import parser.Parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class HabrParser implements Parser<ArrayList<Article>> {
 

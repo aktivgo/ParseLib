@@ -1,8 +1,12 @@
+import dramteatr.DramteatrParser;
+import dramteatr.DramteatrSettings;
+import dramteatr.NewDataDramteatr;
 import habr.HabrParser;
 import habr.HabrSettings;
 import model.Article;
+import model.Performance;
 import parser.Completed;
-import parser.NewData;
+import habr.NewDataHabr;
 import parser.ParserWorker;
 import tools.ImageDownloader;
 
@@ -16,6 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
+
         int menu = -1;
         while (menu != 0) {
             printMenu();
@@ -26,11 +31,14 @@ public class Main {
                 System.out.println("Ошибка при считывании с клавиатуры, повторите попытку");
             }
             switch (menu) {
+                case 0 -> {
+                    System.out.println("Пока");
+                }
                 case 1 -> {
                     parseHabr();
                 }
                 case 2 -> {
-
+                    parseDramteatr();
                 }
                 case 3 -> {
 
@@ -44,6 +52,7 @@ public class Main {
         System.out.println("1. https://habr.com/ru/all/");
         System.out.println("2. https://kirovdramteatr.ru/afisha/");
         System.out.println("3. https://ekvus-kirov.ru/afisha/");
+        System.out.println("0. Выход");
     }
 
     private static void parseHabr() throws IOException, InterruptedException {
@@ -52,12 +61,13 @@ public class Main {
         ParserWorker<ArrayList<Article>> parser = new ParserWorker<>(new HabrParser(), new HabrSettings(start, end));
 
         parser.onCompletedList.add(new Completed());
-        parser.onNewDataList.add(new NewData());
-        ImageDownloader.setSavePath("upload_images/");
+        parser.onNewDataList.add(new NewDataHabr());
+
+        ImageDownloader.setSavePath("upload_images/habr/");
 
         System.out.println("\nЗагрузка началась\n");
         parser.start();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         parser.abort();
     }
 
@@ -72,5 +82,19 @@ public class Main {
             System.out.println("Введите целочисленное значение больше 0");
         }
         return value;
+    }
+
+    private static void parseDramteatr() throws IOException, InterruptedException {
+        ParserWorker<ArrayList<Performance>> parser = new ParserWorker<>(new DramteatrParser(), new DramteatrSettings());
+
+        parser.onCompletedList.add(new Completed());
+        parser.onNewDataList.add(new NewDataDramteatr());
+
+        ImageDownloader.setSavePath("upload_images/dramteatr/");
+
+        System.out.println("\nЗагрузка началась\n");
+        parser.start();
+        Thread.sleep(5000);
+        parser.abort();
     }
 }
