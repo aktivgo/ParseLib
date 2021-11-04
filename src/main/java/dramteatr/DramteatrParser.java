@@ -24,7 +24,7 @@ public class DramteatrParser implements Parser<ArrayList<Performance>> {
             String duration = performance.getElementsByClass("t_info_afisha").get(0).getElementsByClass("t_u3").get(0).getElementsByClass("td1").get(0).getElementsByTag("div").get(1).ownText();
             String ageLimit = performance.getElementsByClass("value_limit").text();
             String imageUrl = performance.getElementsByTag("img").attr("src");
-            performances.add(new Performance(name, date, time, duration, ageLimit, imageUrl));
+            performances.add(new Performance(name, date, time, duration, ageLimit,"https://kirovdramteatr.ru", imageUrl));
         }
 
         return performances;

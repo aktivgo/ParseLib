@@ -25,17 +25,8 @@ public class ParserWorker<T> {
         return parser;
     }
 
-    public ParserSettings getParserSettings() {
-        return parserSettings;
-    }
-
     public void setParser(Parser<T> parser) {
         this.parser = parser;
-    }
-
-    public void setParserSettings(ParserSettings parserSettings) {
-        this.parserSettings = parserSettings;
-        loader = new HtmlLoader();
     }
 
     public void start() throws IOException {

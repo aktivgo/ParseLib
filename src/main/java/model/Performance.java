@@ -12,14 +12,14 @@ public class Performance {
     private final String ageLimit;
     private String imageUrl;
 
-    public Performance(String name, String date, String time, String duration, String ageLimit, String imageUrl) throws IOException {
+    public Performance(String name, String date, String time, String duration, String ageLimit, String baseUrl, String imagePath) throws IOException {
         this.name = name;
         this.date = date;
         this.time = time;
         this.duration = duration;
         this.ageLimit = ageLimit;
-        if (!imageUrl.isEmpty()) {
-            this.imageUrl = "https://kirovdramteatr.ru" + imageUrl;
+        if (!imagePath.isEmpty()) {
+            this.imageUrl = baseUrl + imagePath;
             ImageDownloader.download(this.imageUrl);
         }
     }

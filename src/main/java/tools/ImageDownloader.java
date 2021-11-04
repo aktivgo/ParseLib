@@ -10,10 +10,6 @@ public abstract class ImageDownloader {
 
     private static String savePath = "uploads/";
 
-    public static String getSavePath() {
-        return savePath;
-    }
-
     public static void setSavePath(String savePath) {
         ImageDownloader.savePath = savePath;
         if (new File(ImageDownloader.savePath).mkdirs()) {

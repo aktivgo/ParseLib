@@ -1,11 +1,10 @@
-package habr;
+package parser;
 
 import model.Article;
-import parser.OnNewDataHandler;
 
 import java.util.ArrayList;
 
-public class NewDataHabr implements OnNewDataHandler<ArrayList<Article>> {
+public class NewDataArticle implements OnNewDataHandler<ArrayList<Article>> {
 
     @Override
     public void onNewData(Object sender, ArrayList<Article> args) {

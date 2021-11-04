@@ -1,12 +1,10 @@
-package dramteatr;
+package parser;
 
-import model.Article;
 import model.Performance;
-import parser.OnNewDataHandler;
 
 import java.util.ArrayList;
 
-public class NewDataDramteatr implements OnNewDataHandler<ArrayList<Performance>> {
+public class NewDataPerfomance implements OnNewDataHandler<ArrayList<Performance>> {
 
     @Override
     public void onNewData(Object sender, ArrayList<Performance> args) {
