@@ -7,10 +7,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import parser.Parser;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class SpasskayaParser implements Parser<ArrayList<Performance>> {
 
@@ -22,22 +20,70 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         performancesEl.remove(0);
 
         for (Element performance : performancesEl) {
-            String href = performance.getElementsByTag("a").get(1).attr("href");
-            Document performanceDoc = Jsoup.connect("https://ekvus-kirov.ru" + href).get();
+            Document performanceDoc = loadPerformance(performance);
 
-            String name = performanceDoc.getElementsByTag("h1").text();
-            Elements dates = performanceDoc.getElementsByTag("a").attr("alt", "Купить билет");
-            String dateStr = "";
-            for (Element date : dates) {
-                dateStr = dateStr.concat(date.ownText() + " ");
-            }
-            String count = "Продолжительность спектакля";
-            String duration = performanceDoc.getElementsMatchingText(count).text().substring(count.length() + 3).replace(".", "");
-            String ageLimit = performanceDoc.getElementsByTag("h2").get(0).text();
-            String imageUrl = Objects.requireNonNull(performanceDoc.getElementById("photo_osnova")).attr("src");
+            String name = parseName(performanceDoc);
+            String dateStr = parseDate(performanceDoc);
+            String duration = parseDuration(performanceDoc);
+            String ageLimit = parseAgeLimit(performanceDoc);
+            String imageUrl = parseImage(performanceDoc);
+
             performances.add(new Performance(name, dateStr, "", duration, ageLimit, "https://ekvus-kirov.ru", imageUrl));
         }
 
         return performances;
+    }
+
+    private Document loadPerformance(Element performance) throws IOException {
+        String href = performance.getElementsByTag("a").get(1).attr("href");
+        return Jsoup.connect("https://ekvus-kirov.ru" + href).get();
+    }
+
+    private String parseName(Document performanceDoc) {
+        return performanceDoc.getElementsByTag("h1").text();
+    }
+
+    private String parseDate(Document performanceDoc) {
+        String dateStr = "";
+        Elements dates = performanceDoc.getElementsByClass("page_box").get(0).getElementsByTag("a").attr("title", "Купить билет");
+        for (Element date : dates) {
+            if (!date.attr("href").contains("/events/buyticket/")) break;
+            dateStr = dateStr.concat(date.ownText() + "\n");
+        }
+        if (!dateStr.equals("")) {
+            dateStr = dateStr.substring(0, dateStr.length() - 1);
+        }
+        return dateStr;
+    }
+
+    private String parseDuration(Document performanceDoc) {
+        String duration = "";
+        String dur = "Продолжительность спектакля - ";
+        Elements durs = performanceDoc.getElementsMatchingText(dur);
+        if (!durs.isEmpty()) {
+            duration = durs.get(8).text().substring(dur.length()).replace(".", "");
+        }
+        return duration;
+    }
+
+    private String parseAgeLimit(Document performanceDoc) {
+        String ageLimit = "";
+        Elements ageLimitEl = performanceDoc.getElementsMatchingOwnText("[0-9]+\\+");
+        if (!ageLimitEl.isEmpty()) {
+            ageLimit = ageLimitEl.text().substring(ageLimitEl.text().lastIndexOf(" ") + 1);
+        }
+        return ageLimit;
+    }
+
+    private String parseImage(Document performanceDoc) {
+        String imageUrl = "";
+        Element imageEl = performanceDoc.getElementById("photo_osnova");
+        if (imageEl != null) {
+            imageUrl = imageEl.attr("src");
+        } else {
+            imageUrl = performanceDoc.getElementsByClass("img_right").get(0).attr("src");
+            imageUrl = imageUrl.substring(5);
+        }
+        return imageUrl;
     }
 }

@@ -26,6 +26,6 @@ public class Performance {
 
     @Override
     public String toString() {
-        return name + "\n" + date + " " + time + "\n" + duration + "\n" + ageLimit + "\n" + (imageUrl != null ? imageUrl : "") + "\n";
+        return name + "\n" + date + " " + time + "\n" + (!duration.equals("") ? duration : "Продолжительность не указана") + "\n" + ageLimit + "\n" + (imageUrl != null ? imageUrl : "Изображение отсутствует") + "\n";
     }
 }
