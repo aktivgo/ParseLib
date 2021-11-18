@@ -21,6 +21,9 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         performancesEl.remove(0);
 
         for (Element performance : performancesEl) {
+            if (performance.getElementsByTag("td").size() < 2){
+                continue;
+            }
             Document performanceDoc = loadPerformance(performance);
 
             String name = parseName(performanceDoc);
@@ -35,8 +38,7 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         return performances;
     }
 
-    @NotNull
-    private Document loadPerformance(@NotNull Element performance) throws IOException {
+    private @NotNull Document loadPerformance(@NotNull Element performance) throws IOException {
         String href = performance.getElementsByTag("a").get(1).attr("href");
         return Jsoup.connect("https://ekvus-kirov.ru" + href).get();
     }
@@ -82,8 +84,8 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         Element imageEl = performanceDoc.getElementById("photo_osnova");
         if (imageEl != null) {
             imageUrl = imageEl.attr("src");
-        } else {
-            imageUrl = performanceDoc.getElementsByClass("img_right").get(0).attr("src");
+        } else if (performanceDoc.getElementsByClass("img_right").first() != null){
+            imageUrl = performanceDoc.getElementsByClass("img_right").first().attr("src");
             imageUrl = imageUrl.substring(5);
         }
         return imageUrl;
