@@ -1,12 +1,12 @@
 import dramteatr.DramteatrParser;
 import dramteatr.DramteatrSettings;
-import parser.NewDataPerfomance;
 import habr.HabrParser;
 import habr.HabrSettings;
 import model.Article;
 import model.Performance;
 import parser.Completed;
 import parser.NewDataArticle;
+import parser.NewDataPerfomance;
 import parser.ParserWorker;
 import spasskaya.SpasskayaParser;
 import spasskaya.SpasskayaSettings;
@@ -20,7 +20,7 @@ public class Main {
 
     private static final Scanner IN = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
 
 
         int menu = -1;

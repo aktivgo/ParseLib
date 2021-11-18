@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class ParserWorker<T> {
 
     private Parser<T> parser;
-    private ParserSettings parserSettings;
-    private HtmlLoader loader;
+    private final ParserSettings parserSettings;
+    private final HtmlLoader loader;
     private boolean isActive;
 
     public ArrayList<OnNewDataHandler<T>> onNewDataList = new ArrayList<>();

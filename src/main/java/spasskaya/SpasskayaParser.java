@@ -1,6 +1,7 @@
 package spasskaya;
 
 import model.Performance;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class SpasskayaParser implements Parser<ArrayList<Performance>> {
 
     @Override
-    public ArrayList<Performance> Parse(Document document) throws IOException {
+    public ArrayList<Performance> Parse(@NotNull Document document) throws IOException {
         ArrayList<Performance> performances = new ArrayList<>();
 
         Elements performancesEl = document.getElementsByClass("page_box").get(0).getElementsByTag("table").get(0).getElementsByTag("tr");
@@ -34,16 +35,17 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         return performances;
     }
 
-    private Document loadPerformance(Element performance) throws IOException {
+    @NotNull
+    private Document loadPerformance(@NotNull Element performance) throws IOException {
         String href = performance.getElementsByTag("a").get(1).attr("href");
         return Jsoup.connect("https://ekvus-kirov.ru" + href).get();
     }
 
-    private String parseName(Document performanceDoc) {
+    private @NotNull String parseName(@NotNull Document performanceDoc) {
         return performanceDoc.getElementsByTag("h1").text();
     }
 
-    private String parseDate(Document performanceDoc) {
+    private @NotNull String parseDate(@NotNull Document performanceDoc) {
         String dateStr = "";
         Elements dates = performanceDoc.getElementsByClass("page_box").get(0).getElementsByTag("a").attr("title", "Купить билет");
         for (Element date : dates) {
@@ -56,7 +58,7 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         return dateStr;
     }
 
-    private String parseDuration(Document performanceDoc) {
+    private String parseDuration(@NotNull Document performanceDoc) {
         String duration = "";
         String dur = "Продолжительность спектакля - ";
         Elements durs = performanceDoc.getElementsMatchingText(dur);
@@ -66,7 +68,7 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         return duration;
     }
 
-    private String parseAgeLimit(Document performanceDoc) {
+    private String parseAgeLimit(@NotNull Document performanceDoc) {
         String ageLimit = "";
         Elements ageLimitEl = performanceDoc.getElementsMatchingOwnText("[0-9]+\\+");
         if (!ageLimitEl.isEmpty()) {
@@ -75,7 +77,7 @@ public class SpasskayaParser implements Parser<ArrayList<Performance>> {
         return ageLimit;
     }
 
-    private String parseImage(Document performanceDoc) {
+    private String parseImage(@NotNull Document performanceDoc) {
         String imageUrl = "";
         Element imageEl = performanceDoc.getElementById("photo_osnova");
         if (imageEl != null) {

@@ -1,7 +1,5 @@
 package parser;
 
-import parser.OnCompleted;
-
 public class Completed implements OnCompleted {
 
     @Override

@@ -2,17 +2,10 @@ package parser;
 
 public abstract class ParserSettings {
 
-    // Адрес сайта
-    public static String BASE_URL;
-
-    // Префих страницы
-    public static String PREFIX;
-
-    // Начало пагинации
-    protected int startPoint;
-
-    // Конец пагинации
-    protected int endPoint;
+    public static String BASE_URL;  // Адрес сайта
+    public static String PREFIX;    // Префих страницы
+    protected int startPoint;       // Начало пагинации
+    protected int endPoint;         // Конец пагинации
 
     public int getStartPoint() {
         return startPoint;

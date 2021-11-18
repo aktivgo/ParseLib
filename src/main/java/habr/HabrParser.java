@@ -1,6 +1,7 @@
 package habr;
 
 import model.Article;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class HabrParser implements Parser<ArrayList<Article>> {
 
     @Override
-    public ArrayList<Article> Parse(Document document) throws IOException {
+    public ArrayList<Article> Parse(@NotNull Document document) throws IOException {
 
         ArrayList<Article> articles = new ArrayList<>();
         Elements articlesEl = document.getElementsByTag("article");

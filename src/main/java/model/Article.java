@@ -1,6 +1,8 @@
 package model;
 
+import org.jetbrains.annotations.NotNull;
 import tools.ImageDownloader;
+
 import java.io.IOException;
 
 public class Article {
@@ -8,7 +10,7 @@ public class Article {
     private final String text;
     private String imageUrl;
 
-    public Article(String title, String text, String imageUrl) throws IOException {
+    public Article(String title, String text, @NotNull String imageUrl) throws IOException {
         this.title = title;
         this.text = text;
         if (!imageUrl.isEmpty()) {

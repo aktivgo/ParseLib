@@ -1,5 +1,6 @@
 package model;
 
+import org.jetbrains.annotations.NotNull;
 import tools.ImageDownloader;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class Performance {
     private final String ageLimit;
     private String imageUrl;
 
-    public Performance(String name, String date, String time, String duration, String ageLimit, String baseUrl, String imagePath) throws IOException {
+    public Performance(String name, String date, String time, String duration, String ageLimit, String baseUrl, @NotNull String imagePath) throws IOException {
         this.name = name;
         this.date = date;
         this.time = time;
