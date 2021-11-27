@@ -22,8 +22,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        GUI form = new GUI();
+        form.setVisible(true);
 
-        int menu = -1;
+        /*int menu = -1;
         while (menu != 0) {
             printMenu();
             System.out.print("Выберите пункт меню: ");
@@ -46,7 +48,7 @@ public class Main {
                     parseSpasskaya();
                 }
             }
-        }
+        }*/
     }
 
     private static void printMenu() {
